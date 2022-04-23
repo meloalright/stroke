@@ -1,0 +1,12 @@
+[package]
+name = "cairo-stroke"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+png = "0.17.5"
+colorsys = "0.6.5"
+clap = { version = "3.1.10", features = ["derive"] }
+cairo-rs = { version = "0.15.10", features = ["png"] }
