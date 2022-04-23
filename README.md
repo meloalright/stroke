@@ -1,17 +1,16 @@
 ![Logo](https://user-images.githubusercontent.com/11075892/164912746-7923ed22-42ae-4dda-a77b-bef6fd8c0109.png)
 
-# stroke
+# Stroke
 
-A MacOS command stroke tool written in Rust
+`A MacOS command stroke tool written in Rust`
 
-一款基于 Rust 实现的命令行绘线工具
+`一款基于 Rust 实现的 Mac 命令行绘线工具`
 
 
 ## Install
 
-```
-$ brew tap meloalright/tap 
-$ brew install meloalright/tap/stroke 
+```shell
+$ brew install meloalright/tap/stroke
 ```
 
 ## Usage
@@ -43,3 +42,15 @@ $ stroke 0 0 30 60 70 40 120 120 --output mypath.png
 # You can just run:
 #   open mypath.png
 ```
+
+### Stroke the Graphic with one line
+
+![star](https://user-images.githubusercontent.com/11075892/164914991-2d8519cc-c1c9-4b6e-ab8d-ed8bc6e1c130.png)
+
+```shell
+$ stroke 0 40 120 40 20 120 60 0 100 120 0 40 60 0 120 40 100 120 20 120 0 40
+```
+
+## License   
+   
+[MIT](https://opensource.org/licenses/MIT)   
