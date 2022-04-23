@@ -24,9 +24,12 @@ jobs:
           - target: x86_64-apple-darwin
             archive: zip
     steps:
+      - name: Set Up
+        run: export PKG_CONFIG_PATH=/usr/share/pkgconfig:/usr/lib/x86_64-apple-darwin/pkgconfig;
+
       - uses: actions/checkout@master
       - name: Compile and release
-        run: export PKG_CONFIG_PATH=/usr/share/pkgconfig:/usr/lib/x86_64-apple-darwin/pkgconfig; /usr/bin/docker run --name ghcriorustbuildrustbuildactionv127_d279d3 --label 294b31 --workdir /github/workspace --rm -e GITHUB_TOKEN -e RUSTTARGET -e ARCHIVE_TYPES -e INPUT_RUSTTARGET -e INPUT_GITHUB_TOKEN -e INPUT_EXTRA_FILES -e INPUT_SRC_DIR -e INPUT_ARCHIVE_TYPES -e INPUT_ARCHIVE_NAME -e INPUT_PRE_BUILD -e INPUT_POST_BUILD -e INPUT_TOOLCHAIN_VERSION -e HOME -e GITHUB_JOB -e GITHUB_REF -e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_RETENTION_DAYS -e GITHUB_RUN_ATTEMPT -e GITHUB_ACTOR -e GITHUB_WORKFLOW -e GITHUB_HEAD_REF -e GITHUB_BASE_REF -e GITHUB_EVENT_NAME -e GITHUB_SERVER_URL -e GITHUB_API_URL -e GITHUB_GRAPHQL_URL -e GITHUB_REF_NAME -e GITHUB_REF_PROTECTED -e GITHUB_REF_TYPE -e GITHUB_WORKSPACE -e GITHUB_ACTION -e GITHUB_EVENT_PATH -e GITHUB_ACTION_REPOSITORY -e GITHUB_ACTION_REF -e GITHUB_PATH -e GITHUB_ENV -e GITHUB_STEP_SUMMARY -e RUNNER_OS -e RUNNER_ARCH -e RUNNER_NAME -e RUNNER_TOOL_CACHE -e RUNNER_TEMP -e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL -e ACTIONS_RUNTIME_TOKEN -e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true --network github_network_a165fdc79f0941148fecba2cf02ac7d5 -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/stroke/stroke":"/github/workspace" ghcr.io/rust-build/rust-build.action:v1.2.7
+        run: rust-build/rust-build.action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
