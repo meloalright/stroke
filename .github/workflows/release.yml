@@ -26,8 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Compile and release
-        run: export PKG_CONFIG_PATH=/usr/share/pkgconfig:/usr/lib/x86_64-apple-darwin/pkgconfig
-        uses: rust-build/rust-build.action@latest
+        run: export PKG_CONFIG_PATH=/usr/share/pkgconfig:/usr/lib/x86_64-apple-darwin/pkgconfig; cargo build --release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
