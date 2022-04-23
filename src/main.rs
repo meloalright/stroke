@@ -51,7 +51,8 @@ impl CairoStroke for Stroke {
         };
 
         if points.len() < 2 {
-            panic!("points is too less");
+            println!("\n🤔 Maybe you need run:\n  stroke -h");
+            return;
         }
 
         let color = Rgb::from_hex_str(&self.color).unwrap();
