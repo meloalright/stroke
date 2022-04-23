@@ -29,7 +29,7 @@ jobs:
 
       - uses: actions/checkout@master
       - name: Compile and release
-        run: rust-build/rust-build.action@latest
+        uses: rust-build/rust-build.action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
