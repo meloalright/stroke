@@ -4,7 +4,7 @@
 
 `A MacOS command stroke tool written in Rust`
 
-`一款基于 Rust 实现的 Mac 命令行绘线工具`
+`一款基于 Rust 实现的 Mac 命令行一笔画绘线工具`
 
 
 ## Install
@@ -15,13 +15,12 @@ $ brew install meloalright/tap/stroke
 
 ## Usage
 
-### ARGS: \<to.x\> \<to.y\> \<to.x\> \<to.y\>...
-
+### Quick Start
 
 ![output](https://user-images.githubusercontent.com/11075892/164912960-98b62f91-83c2-455d-8804-186692246edc.png)
 
 ```
-$ stroke 0 0 30 60 70 40 120 120
+$ stroke 0 0 30 60 70 40 120 120 --view
 ```
 
 
@@ -38,9 +37,13 @@ $ stroke 0 0 30 60 70 40 120 120 --color c200e8
 
 ```shell
 $ stroke 0 0 30 60 70 40 120 120 --output mypath.png
+```
 
-# You can just run:
-#   open mypath.png
+
+### --view
+
+```shell
+$ stroke 0 0 30 60 70 40 120 120 --view
 ```
 
 ### Stroke the Graphic with one line
@@ -48,7 +51,19 @@ $ stroke 0 0 30 60 70 40 120 120 --output mypath.png
 ![star](https://user-images.githubusercontent.com/11075892/164914991-2d8519cc-c1c9-4b6e-ab8d-ed8bc6e1c130.png)
 
 ```shell
-$ stroke 0 40 120 40 20 120 60 0 100 120 0 40 60 0 120 40 100 120 20 120 0 40
+$ stroke 0 40 120 40 20 120 60 0 100 120 0 40 60 0 120 40 100 120 20 120 0 40 --view
+```
+
+## Development
+
+```shell
+$ cargo build
+$ ./target/debug/stroke -h
+```
+
+
+```shell
+$ cargo build --release
 ```
 
 ## License   
