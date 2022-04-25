@@ -1,4 +1,7 @@
+/** 
+ * Should not extern cairo
 extern crate cairo;
+ **/
 
 use clap::Parser;
 use std::fs::File;
