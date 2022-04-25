@@ -57,7 +57,12 @@ $ stroke 0 40 120 40 20 120 60 0 100 120 0 40 60 0 120 40 100 120 20 120 0 40 --
 ## Development
 
 ```shell
+$ git clone https://github.com/meloalright/stroke
+```
+
+```shell
 $ cargo build
+
 $ ./target/debug/stroke -h
 ```
 
