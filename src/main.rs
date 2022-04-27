@@ -1,14 +1,13 @@
-/** 
- * Should not extern cairo
-extern crate cairo;
- **/
+mod canvas;
+use skia_safe::{Color};
+use canvas::Canvas;
 
 use clap::Parser;
 use std::fs::File;
+use std::io::Write;
 use std::process::Command;
 
-use colorsys::{Rgb};
-use cairo::{ ImageSurface, Format, Context };
+use colorsys::Rgb;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -62,19 +61,28 @@ impl CairoStroke for Stroke {
     }
 
     fn draw(&self, points: Vec<[f64; 2]>, size: [f64; 2]) -> () {
+        let mut canvas = Canvas::new(size[0] as i32, size[1] as i32);
+        let context = canvas.get_context();
 
-        let color = Rgb::from_hex_str(&self.color).unwrap();
+        let color = Rgb::from_hex_str(&self.color).expect("Failed to create color");
 
-        let canvas = ImageSurface::create(Format::ARgb32, size[0] as i32, size[1] as i32).expect("Failed to create surface");
-        let context = Context::new(&canvas).expect("Failed to create context");
+        context.set_color(Color::from_rgb(color.red() as u8, color.green() as u8, color.blue() as u8));
+        context.set_anti_alias(true);
+        context.set_stroke_width(2.0);
 
-        context.set_source_rgb(color.red(), color.green(), color.blue());
-        for i in 0..points.len() {
-            context.line_to(points[i][0], points[i][1]);
+        canvas.move_to(points[0][0] as f32, points[0][1] as f32);
+        for i in 1..points.len() {
+            canvas.line_to(points[i][0] as f32, points[i][1] as f32);
         }
-        context.stroke();
+
+        canvas.stroke();
+
+        let d = canvas.data();
+
         let mut file = File::create(&self.output).expect("Failed to open output png");
-        canvas.write_to_png(&mut file);
+        let bytes = d.as_bytes();
+
+        file.write_all(bytes).expect("Failed to write output png");
     }
 
     fn open(&self) -> () {
