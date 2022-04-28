@@ -55,6 +55,8 @@ impl CairoStroke for Stroke {
                 counter += 2;
                 continue;
             }
+            size[0] += 1.0;
+            size[1] += 1.0;
             break;
         };
         (points, size)
