@@ -60,7 +60,7 @@ jobs:
       #     prepare: |
       #       pkg install -y curl node14 python2
       - name: Rust Compile
-      - uses: rust-build/rust-build.action@latest
+        uses: rust-build/rust-build.action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
