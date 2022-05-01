@@ -72,9 +72,6 @@ jobs:
             npm install -g yarn
             curl https://sh.rustup.rs -sSf --output rustup.sh
             sh rustup.sh -y --profile minimal --default-toolchain stable
-            source /usr/local/cargo/env
-            echo "~~~~ rustc --version ~~~~"
-            rustc --version
           run: |
             pwd
             ls -lah
