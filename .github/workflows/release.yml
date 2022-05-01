@@ -20,8 +20,8 @@ jobs:
             archive: zip
     steps:
       - uses: actions/checkout@master
-      - name: hello
-        run: echo hello
+      - name: Compile
+        run: rust-build/rust-build.action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
