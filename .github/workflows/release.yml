@@ -86,7 +86,6 @@ jobs:
     #   #     path: ${{ env.APP_NAME }}.*.node
     #   #     if-no-files-found: error
 
-    steps:
       - uses: actions/checkout@master
       - name: Compile
         with:
