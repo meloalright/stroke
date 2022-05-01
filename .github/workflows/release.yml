@@ -73,7 +73,7 @@ jobs:
             whoami
             env
             freebsd-version
-        uses: rust-build/rust-build.action@latest
+      - uses: rust-build/rust-build.action@latest
     #         cargo build --release
     #   # - name: Upload artifact
     #   #   uses: actions/upload-artifact@v2
