@@ -74,6 +74,10 @@ jobs:
             env
             freebsd-version
       - uses: rust-build/rust-build.action@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUSTTARGET: ${{ matrix.target }}
+          ARCHIVE_TYPES: ${{ matrix.archive }}
     #         cargo build --release
     #   # - name: Upload artifact
     #   #   uses: actions/upload-artifact@v2
