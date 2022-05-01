@@ -1,8 +1,16 @@
 # .github/workflows/release.yml
 
+name: RELEASE
+
 on:
   release:
     types: [created]
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+  pull_request:
 
 jobs:
   release:
