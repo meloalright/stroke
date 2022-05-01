@@ -35,6 +35,8 @@ jobs:
           override: true
           toolchain: stable
           target: ${{ matrix.settings.target }}
+          prepare: |
+            pkg install -y curl node14 python2
       - name: Generate Cargo.lock
         uses: actions-rs/cargo@v1
         with:
@@ -49,52 +51,16 @@ jobs:
         with:
           path: ~/.cargo/git
           key: ${{ matrix.settings.target }}-node@16-cargo-index-trimmed-${{ hashFiles('**/Cargo.lock') }}
-  # build-freebsd:
-  #   runs-on: macos-10.15
-  #   name: Build FreeBSD
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Build
-  #       id: build
-  #       uses: vmactions/freebsd-vm@v0.1.5
-  #       env:
-  #         RUSTUP_HOME: /usr/local/rustup
-  #         CARGO_HOME: /usr/local/cargo
-  #         RUSTUP_IO_THREADS: 1
-  #       with:
-  #         envs: DEBUG RUSTUP_HOME CARGO_HOME RUSTUP_IO_THREADS
-  #         usesh: true
-  #         mem: 3000
-  #         prepare: |
-  #           pkg install -y curl node14 python2
-  #         run: |
-  #           pwd
-  #           ls -lah
-  #           whoami
-  #           env
-  #           freebsd-version
-  #     - uses: rust-build/rust-build.action@latest
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         RUSTTARGET: ${{ matrix.target }}
-  #         ARCHIVE_TYPES: ${{ matrix.archive }}
-    #         cargo build --release
-    #   # - name: Upload artifact
-    #   #   uses: actions/upload-artifact@v2
-    #   #   with:
-    #   #     name: bindings-freebsd
-    #   #     path: ${{ env.APP_NAME }}.*.node
-    #   #     if-no-files-found: error
-
-      - uses: actions/checkout@master
-      - name: Compile
-        with:
-          envs: Python
-          usesh: true
-          mem: 3000
-          prepare: |
-            pkg install -y curl node14 python2
-        uses: rust-build/rust-build.action@latest
+      # - uses: actions/checkout@master
+      # - name: Compile
+      #   with:
+      #     envs: Python
+      #     usesh: true
+      #     mem: 3000
+      #     prepare: |
+      #       pkg install -y curl node14 python2
+      - name: Rust Compile
+      - uses: rust-build/rust-build.action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUSTTARGET: ${{ matrix.target }}
