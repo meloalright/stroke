@@ -79,7 +79,7 @@ jobs:
         with:
           owner: meloalright
           repo: stroke
-          tag: ${{ RELEASE_VERSION }}
+          tag: ${{ env.RELEASE_VERSION }}
           allowUpdates: true
           replacesArtifacts: true
           artifacts: "${{ runner.temp }}/stroke-${{ env.os }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
