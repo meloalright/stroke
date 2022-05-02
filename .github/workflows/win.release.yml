@@ -8,10 +8,11 @@ on:
   push:
     branches:
       - main
-      - ci_darwin_and_win
-    tags-ignore:
-      - '**'
+    tags:
+      - '*.*.*'
   # pull_request:
+env:
+  os: 'win'
 
 jobs:
   win-release:
@@ -23,6 +24,7 @@ jobs:
       - name: Set outputs
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
@@ -75,9 +77,9 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./target"
-          files: "release"
-          outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
+          cwd: "./target/release"
+          files: "stroke.exe"
+          outPath: "${{ runner.temp }}/stroke-${{ env.os }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
         if: github.event_name != 'pull_request'
@@ -85,10 +87,10 @@ jobs:
         with:
           owner: meloalright
           repo: stroke
-          tag: ${{ steps.vars.outputs.sha_short }}
+          tag: ${{ RELEASE_VERSION }}
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
+          artifacts: "${{ runner.temp }}/stroke-${{ env.os }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
           artifactErrorsFailBuild: true
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
