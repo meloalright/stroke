@@ -66,7 +66,7 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./target/release"
+          cwd: "./"
           files: "stroke"
           outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
