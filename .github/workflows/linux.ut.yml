@@ -104,6 +104,7 @@ jobs:
         with:
           owner: meloalright
           repo: stroke
+          tag: ${{ github.ref }}
           allowUpdates: true
           replacesArtifacts: true
           artifacts: "${{ runner.temp }}/stroke-binaries.tar.gz"
