@@ -56,6 +56,10 @@ jobs:
         run: |
           cargo clean
           cargo build --release --target-dir ./target
+          ls target
+          echo 1
+          ls target release
+          echo 2
           echo "STROKE_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
         env:
           BUILD_ARTIFACTSTAGINGDIRECTORY: ${{ runner.temp }}
