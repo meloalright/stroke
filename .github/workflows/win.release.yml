@@ -1,4 +1,4 @@
-name: "linux-release"
+name: "win-release"
 
 on:
   push:
@@ -6,12 +6,11 @@ on:
       - '*.*.*'
   pull_request:
 env:
-  os: 'linux'
+  os: 'win'
 
 jobs:
-  linux-release:
-    runs-on: ubuntu-20.04
-    container: ghcr.io/pragmatrix/rust-skia-linux:latest
+  win-release:
+    runs-on: windows-2022
 
     steps:
       - uses: actions/checkout@v2
@@ -25,28 +24,27 @@ jobs:
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
 
-      - name: Prepare Rustup
-        run: (cd /github/home && ln -s /root/.cargo)
-
-      - name: Update Rustup and Rust
-        run: rustup update
-
-      - name: Configure Rust Toolchain
-        run: rustup default stable
+      - name: Install Rust
+        uses: hecrj/setup-rust-action@master
+        with:
+          rust-version: stable
 
       - name: Install Clippy
         run: rustup component add clippy
 
-      - name: "Install Rust target x86_64-unknown-linux-gnu"
+      - name: Install LLVM
+        run: choco install llvm
+
+      - name: 'Install Rust target x86_64-pc-windows-msvc'
         shell: bash
         run: |
-          rustup target add x86_64-unknown-linux-gnu
+          rustup target add x86_64-pc-windows-msvc
 
       - name: "Build"
         shell: bash
         run: |
           cargo clean
-          cargo build --release
+          cargo build --release --target-dir ./target
           echo "STROKE_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
         env:
           BUILD_ARTIFACTSTAGINGDIRECTORY: ${{ runner.temp }}
@@ -58,7 +56,7 @@ jobs:
         with:
           command: c
           cwd: "./target/release"
-          files: "stroke"
+          files: "stroke.exe"
           outPath: "${{ runner.temp }}/stroke-${{ env.os }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"

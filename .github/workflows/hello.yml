@@ -1,0 +1,21 @@
+# .github/workflows/hello.yml
+
+name: hello
+
+on:
+  release:
+    types: [created]
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+  pull_request:
+
+jobs:
+  hello:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check outputs
+        run: echo hello
