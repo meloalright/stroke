@@ -43,7 +43,7 @@ jobs:
       run: |
         rustup target add x86_64-unknown-linux-gnu
     
-    - name: 'Build all targets in skia-safe for x86_64-unknown-linux-gnu with features egl,gl,textlayout,vulkan,wayland,webp,x11'
+    - name: 'Build all targets in skia-safe'
       shell: bash
       run: |
         if [ "false" == "true" ]; then
@@ -60,7 +60,7 @@ jobs:
         # cargo build -p skia-safe --all-targets --release --features "egl,gl,textlayout,vulkan,wayland,webp,x11" --target x86_64-unknown-linux-gnu
         # echo "SKIA_BINARIES_TAG=$(cat "${BUILD_ARTIFACTSTAGINGDIRECTORY}/skia-binaries/tag.txt")" >> ${GITHUB_ENV}
         # echo "SKIA_BINARIES_KEY=$(cat "${BUILD_ARTIFACTSTAGINGDIRECTORY}/skia-binaries/key.txt")" >> ${GITHUB_ENV}
-        # echo "SKIA_STAGING_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
+        echo "STROKE_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
       env:
         BUILD_ARTIFACTSTAGINGDIRECTORY: ${{ runner.temp }}
     
@@ -89,32 +89,31 @@ jobs:
     #     name: skia-org-images-x86_64-unknown-linux-gnu
     #     path: ${{ env.SKIA_STAGING_PATH }}/skia-org
     
-    # - name: 'Compress binaries'
-    #   if: false
-    #   uses: master-atul/tar-action@v1.0.2
-    #   with:
-    #     command: c
-    #     cwd: '${{ env.SKIA_STAGING_PATH }}'
-    #     files: 'skia-binaries'
-    #     outPath: '${{ runner.temp }}/skia-binaries-${{ env.SKIA_BINARIES_KEY }}.tar.gz'
+    - name: 'Compress binaries'
+      if: false
+      uses: master-atul/tar-action@v1.0.2
+      with:
+        command: c
+        cwd: '${{ env.SKIA_STAGING_PATH }}'
+        files: 'stroke-binaries'
+        outPath: '${{ runner.temp }}/skia-binaries-${{ env.STROKE_PATH }}.tar.gz'
     
-  #   - name: 'Release binaries'
-  #     if: false
-  #     uses: pragmatrix/release-action@exp
-  #     with:
-  #       owner: rust-skia
-  #       repo: skia-binaries
-  #       allowUpdates: true
-  #       replacesArtifacts: true
-  #       tag: '${{ env.SKIA_BINARIES_TAG }}'
-  #       artifacts: '${{ runner.temp }}/skia-binaries-${{ env.SKIA_BINARIES_KEY }}.tar.gz'
-  #       artifactErrorsFailBuild: true
-  #       token: ${{ secrets.RUST_SKIA_RELEASE_TOKEN }}
-  #       prerelease: true
-  #   - name: 'Install Rust target aarch64-linux-android'
-  #     shell: bash
-  #     run: |
-  #       rustup target add aarch64-linux-android
+    - name: 'Release binaries'
+      if: false
+      uses: pragmatrix/release-action@exp
+      with:
+        owner: meloalright
+        repo: stroke
+        allowUpdates: true
+        replacesArtifacts: true
+        artifacts: '${{ runner.temp }}/skia-binaries-${{ env.STROKE_PATH }}.tar.gz'
+        artifactErrorsFailBuild: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: true
+    # - name: 'Install Rust target aarch64-linux-android'
+    #   shell: bash
+    #   run: |
+    #     rustup target add aarch64-linux-android
     
   #   - name: 'Build all targets in skia-safe for aarch64-linux-android with features gl,textlayout,vulkan,webp'
   #     shell: bash
