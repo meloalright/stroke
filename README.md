@@ -56,9 +56,9 @@ $ stroke 0 0 30 60 70 40 120 120 --view
 $ stroke 0 40 120 40 20 120 60 0 100 120 0 40 60 0 120 40 100 120 20 120 0 40 --view
 ```
 
-## Run in linux and win
+## Run in Linux and Win
 
-[View linux and win binaries in releases](https://github.com/meloalright/stroke/releases)
+[Releases](https://github.com/meloalright/stroke/releases)
 
 ## Development
 
