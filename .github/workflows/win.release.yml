@@ -74,8 +74,8 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./target"
-          files: "release"
+          cwd: "./target/release"
+          files: "stroke*"
           outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
