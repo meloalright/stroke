@@ -95,7 +95,7 @@ jobs:
         with:
           command: c
           cwd: "${{ env.SKIA_STAGING_PATH }}"
-          files: "target/release"
+          files: "target/release/stroke"
           outPath: "${{ runner.temp }}/stroke-binaries-${{ github.ref_name }}.tar.gz"
 
       - name: "Release binaries"
