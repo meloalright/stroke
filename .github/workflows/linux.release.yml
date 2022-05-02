@@ -53,7 +53,7 @@ jobs:
           command: c
           cwd: "./target/release"
           files: "stroke"
-          outPath: "${{ runner.temp }}/stroke-binaries-${{ github.ref_name }}.tar.gz"
+          outPath: "${{ runner.temp }}/stroke-binaries-${{ github.sha }}.tar.gz"
 
       - name: "Release binaries"
         if: true
@@ -61,10 +61,10 @@ jobs:
         with:
           owner: meloalright
           repo: stroke
-          tag: ${{ github.ref_name }}
+          tag: ${{ github.sha }}
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: "${{ runner.temp }}/stroke-binaries-${{ github.ref_name }}.tar.gz"
+          artifacts: "${{ runner.temp }}/stroke-binaries-${{ github.sha }}.tar.gz"
           artifactErrorsFailBuild: true
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
