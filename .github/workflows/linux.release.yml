@@ -4,6 +4,11 @@ name: "linux-release"
 on:
   release:
     types: [created]
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '**'
 
 jobs:
   linux-release:
