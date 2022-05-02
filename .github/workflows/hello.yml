@@ -1,6 +1,6 @@
-# .github/workflows/release.yml
+# .github/workflows/hello.yml
 
-name: RELEASE
+name: hello
 
 on:
   release:
