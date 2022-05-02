@@ -57,6 +57,8 @@ jobs:
           cargo clean
           cargo build --release
           echo "STROKE_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
+          ls
+          ls target
         env:
           BUILD_ARTIFACTSTAGINGDIRECTORY: ${{ runner.temp }}
 
@@ -66,7 +68,7 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./"
+          cwd: "./target/release"
           files: "stroke"
           outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
