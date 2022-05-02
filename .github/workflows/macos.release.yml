@@ -57,7 +57,7 @@ jobs:
           command: c
           cwd: "./target/release"
           files: "stroke"
-          outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
+          outPath: "${{ runner.temp }}/stroke-${{ env.os }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
         if: github.event_name != 'pull_request'
