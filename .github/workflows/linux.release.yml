@@ -20,6 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
+
       - name: Prepare Rustup
         run: (cd /github/home && ln -s /root/.cargo)
 
@@ -53,7 +60,7 @@ jobs:
           command: c
           cwd: "./target/release"
           files: "stroke"
-          outPath: "${{ runner.temp }}/stroke-binaries-${{ github.sha }}.tar.gz"
+          outPath: "${{ runner.temp }}/stroke-binaries-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
         if: github.event_name != 'pull_request'
@@ -61,10 +68,10 @@ jobs:
         with:
           owner: meloalright
           repo: stroke
-          tag: ${{ github.sha }}
+          tag: ${{ steps.vars.outputs.sha_short }}
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: "${{ runner.temp }}/stroke-binaries-${{ github.sha }}.tar.gz"
+          artifacts: "${{ runner.temp }}/stroke-binaries-${{ steps.vars.outputs.sha_short }}.tar.gz"
           artifactErrorsFailBuild: true
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
