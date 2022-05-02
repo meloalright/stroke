@@ -62,6 +62,8 @@ jobs:
           echo 2
           ./target/release/stroke -V
           echo 3
+          pwd
+          echo 4
           echo "STROKE_PATH=${BUILD_ARTIFACTSTAGINGDIRECTORY}" >> ${GITHUB_ENV}
         env:
           BUILD_ARTIFACTSTAGINGDIRECTORY: ${{ runner.temp }}
@@ -72,8 +74,8 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./target/release"
-          files: "stroke"
+          cwd: "./target"
+          files: "release"
           outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
