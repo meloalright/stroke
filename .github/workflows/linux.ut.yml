@@ -95,8 +95,8 @@ jobs:
         with:
           command: c
           cwd: "${{ env.SKIA_STAGING_PATH }}"
-          files: "stroke-binaries"
-          outPath: "${{ runner.temp }}/skia-binaries-${{ env.STROKE_PATH }}.tar.gz"
+          files: "target/release"
+          outPath: "${{ runner.temp }}/stroke-binaries-${{ env.STROKE_PATH }}.tar.gz"
 
       - name: "Release binaries"
         if: true
@@ -106,7 +106,7 @@ jobs:
           repo: stroke
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: "${{ runner.temp }}/skia-binaries-${{ env.STROKE_PATH }}.tar.gz"
+          artifacts: "${{ runner.temp }}/stroke-binaries-${{ env.STROKE_PATH }}.tar.gz"
           artifactErrorsFailBuild: true
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
