@@ -8,9 +8,10 @@ on:
   push:
     branches:
       - main
+      - ci_darwin_and_win
     tags-ignore:
       - '**'
-  pull_request:
+  # pull_request:
 
 jobs:
   win-release:
@@ -74,8 +75,8 @@ jobs:
         uses: master-atul/tar-action@v1.0.2
         with:
           command: c
-          cwd: "./target/release"
-          files: "stroke*"
+          cwd: "./target"
+          files: "release"
           outPath: "${{ runner.temp }}/stroke-${{ runner.workflow }}-${{ steps.vars.outputs.sha_short }}.tar.gz"
 
       - name: "Release binaries"
