@@ -56,7 +56,7 @@ jobs:
           outPath: "${{ runner.temp }}/stroke-binaries-${{ github.sha }}.tar.gz"
 
       - name: "Release binaries"
-        if: true
+        if: github.event_name != 'pull_request'
         uses: pragmatrix/release-action@exp
         with:
           owner: meloalright
